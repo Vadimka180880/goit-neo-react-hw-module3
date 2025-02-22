@@ -1,33 +1,26 @@
-import PropTypes from "prop-types";
-import styles from "./ContactList.module.css";
+import PropTypes from 'prop-types';
+import styles from './ContactList.module.css';
+import Contact from '../Contact/Contact'; // Імпорт компонента Contact
 
 const ContactList = ({ contacts, onDelete }) => {
-  return (
-    <ul className={styles.list}>
-      {contacts.map(({ id, name, number }) => (
-        <li key={id} className={styles.item}>
-          <div className={styles.contactInfo}>
-            <span className={styles.name}>{name}</span>
-            <span className={styles.number}>{number}</span>
-          </div>
-          <button className={styles.deleteButton} onClick={() => onDelete(id)}>
-            Delete
-          </button>
-        </li>
-      ))}
-    </ul>
-  );
+    return (
+        <ul className={styles.list}>
+            {contacts.map((contact) => (
+                <Contact key={contact.id} contact={contact} onDelete={onDelete} />
+            ))}
+        </ul>
+    );
 };
 
 ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  onDelete: PropTypes.func.isRequired,
+    contacts: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+            number: PropTypes.string.isRequired,
+        })
+    ).isRequired,
+    onDelete: PropTypes.func.isRequired,
 };
 
 export default ContactList;
